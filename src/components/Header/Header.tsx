@@ -1,3 +1,4 @@
+import LocalTime from "../LocalTime/LocalTime";
 import { HeaderStyled, SubtitleStyled, TitleStyled } from "./HeaderStyled";
 
 const Header = (): JSX.Element => {
@@ -7,6 +8,7 @@ const Header = (): JSX.Element => {
         <TitleStyled>Lineage 2</TitleStyled>
         <SubtitleStyled>TIME TRACKER</SubtitleStyled>
       </div>
+      <LocalTime />
     </HeaderStyled>
   );
 };
