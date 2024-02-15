@@ -2,6 +2,7 @@ import { Flex, Layout } from "antd";
 import Header from "../Header/Header";
 import EventList from "../EventsList/EventList";
 import { useEffect, useState } from "react";
+import { generateUpdatedTimes } from "../../utils/timeFunctions";
 const { Content } = Layout;
 
 const layoutStyle: React.CSSProperties = {
@@ -20,6 +21,8 @@ const contentStyle: React.CSSProperties = {
     fontSize: "120px",
     backgroundColor: "#305768",
 };
+
+console.log(generateUpdatedTimes("2024-02-15T22:05:00.000Z"));
 
 const MainLayout = (): JSX.Element => {
     const [currentTime, setLocalTime] = useState<string>("");
