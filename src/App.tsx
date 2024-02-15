@@ -1,12 +1,7 @@
-import Header from "./components/Header/Header";
-import "./App.css";
+import MainLayout from "./components/MainLayout/MainLayout";
 
 const App = () => {
-  return (
-    <main className="main-layout">
-      <Header />
-    </main>
-  );
+    return <MainLayout />;
 };
 
 export default App;
