@@ -1,17 +1,27 @@
-import { Card } from "antd";
+import { Card, Table } from "antd";
+import { Event as EventType, EventColumns } from "../../types/events";
 
-const Event = (): JSX.Element => {
+interface EventProps {
+    eventList: EventType[];
+    eventColumns: EventColumns[];
+}
+
+const Event = ({ eventList, eventColumns }: EventProps): JSX.Element => {
     return (
         <Card
             size="default"
             title="Main events"
             bordered={false}
             style={{
-                width: 300,
-                height: "auto",
+                width: 400,
+                minHeight: 600,
             }}
         >
-            asdsad asdasda sadasdasd asdasd
+            <Table
+                pagination={false}
+                dataSource={eventList}
+                columns={eventColumns}
+            />
         </Card>
     );
 };

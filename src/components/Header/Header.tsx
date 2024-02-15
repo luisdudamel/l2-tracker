@@ -1,14 +1,18 @@
 import LocalTime from "../LocalTime/LocalTime";
 import { HeaderStyled, SubtitleStyled, TitleStyled } from "./HeaderStyled";
 
-const Header = (): JSX.Element => {
+interface HeaderProps {
+    localTime: string;
+}
+
+const Header = ({ localTime }: HeaderProps): JSX.Element => {
     return (
         <HeaderStyled>
             <div className="header-title__container">
                 <TitleStyled>Lineage 2</TitleStyled>
                 <SubtitleStyled>TIME TRACKER</SubtitleStyled>
             </div>
-            <LocalTime />
+            <LocalTime localTime={localTime} />
         </HeaderStyled>
     );
 };

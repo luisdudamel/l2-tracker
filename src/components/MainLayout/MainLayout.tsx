@@ -1,6 +1,7 @@
 import { Flex, Layout } from "antd";
 import Header from "../Header/Header";
 import EventList from "../EventsList/EventList";
+import { useEffect, useState } from "react";
 const { Content } = Layout;
 
 const layoutStyle: React.CSSProperties = {
@@ -21,10 +22,47 @@ const contentStyle: React.CSSProperties = {
 };
 
 const MainLayout = (): JSX.Element => {
+    const [currentTime, setLocalTime] = useState<string>("");
+
+    useEffect(() => {
+        const updateCurrentTime = () => {
+            const localUserTime = new Date().toLocaleTimeString(
+                getUserLocale(),
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                }
+            );
+
+            setLocalTime(localUserTime);
+        };
+
+        updateCurrentTime();
+
+        const currentSeconds = new Date().getSeconds();
+        const secondsUntilNextMinute = 60 - currentSeconds;
+
+        const intervalId = setInterval(
+            updateCurrentTime,
+            secondsUntilNextMinute * 1000
+        );
+
+        return () => clearInterval(intervalId);
+    }, []);
+
+    const getUserLocale = (): string => {
+        if (navigator.languages && navigator.languages.length) {
+            return navigator.languages[0];
+        } else {
+            return navigator.language || "en";
+        }
+    };
+
     return (
         <Flex gap="middle" wrap="wrap">
             <Layout style={layoutStyle}>
-                <Header />
+                <Header localTime={currentTime} />
                 <Content style={contentStyle}>
                     <EventList />
                 </Content>
