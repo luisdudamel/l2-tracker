@@ -6,12 +6,10 @@ export const generateUpdatedTimes = (
     events: Event[]
 ): Event[] => {
     const currentDate = new Date(currentServerTime);
-
     return events
         .map((event) => {
             const eventDate = new Date(event.serverTime);
-
-            if (eventDate < currentDate && eventDate.getHours() < 23) {
+            if (eventDate < currentDate && eventDate.getHours() < 24) {
                 eventDate.setHours(new Date(event.serverTime).getHours());
                 eventDate.setDate(eventDate.getDate() + 1);
             }
