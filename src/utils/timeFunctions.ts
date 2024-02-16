@@ -1,4 +1,7 @@
-const currentDay = new Date().toISOString().split("T")[0];
+import moment from "moment-timezone";
+
+const currentDay = moment().utc().format("YYYY-MM-DD");
+
 const mainEventsUtcTimes = [
     `${currentDay}T00:00:00.000Z`,
     `${currentDay}T02:00:00.000Z`,
@@ -17,16 +20,27 @@ const mainEventsUtcTimes = [
 export const generateUpdatedTimes = (currentServerTime: string): string[] => {
     const currentDate = new Date(currentServerTime);
 
-    return mainEventsUtcTimes.map((utcTimeString) => {
-        const eventDate = new Date(utcTimeString);
+    return mainEventsUtcTimes
+        .map((utcTimeString) => {
+            const eventDate = new Date(utcTimeString);
 
-        if (
-            eventDate.getDate() === currentDate.getDate() &&
-            eventDate.getTime() <= currentDate.getTime()
-        ) {
-            eventDate.setDate(eventDate.getDate() + 1); // Add 1 day
-        }
+            if (eventDate < currentDate && eventDate.getHours() < 23) {
+                eventDate.setHours(new Date(utcTimeString).getHours());
+                eventDate.setDate(eventDate.getDate() + 1);
+            }
 
-        return eventDate.toISOString();
-    });
+            const timeDifference = eventDate.getTime() - currentDate.getTime();
+
+            return {
+                eventDate,
+                time: eventDate.toISOString(),
+                timeDifference,
+            };
+        })
+        .sort((a, b) => {
+            if (a.eventDate < b.eventDate) return -1;
+            if (a.eventDate > b.eventDate) return 1;
+            return a.timeDifference - b.timeDifference;
+        })
+        .map((item) => item.time);
 };
