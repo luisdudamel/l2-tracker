@@ -34,9 +34,19 @@ export const generateUpdatedTimes = (
             return {
                 key: (index + 1).toString(),
                 eventName: event.event.eventName,
-                localTime: moment(event.eventDate).local().format("HH:mm"),
+                localTime: moment(event.eventDate).utc(true).format(),
                 serverTime: event.time,
                 localTimeLeft: "",
             };
         });
+};
+
+export const timeDifference = (minutes: number): string => {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+
+    const formattedMinutes =
+        remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
+
+    return `${hours}:${formattedMinutes}`;
 };

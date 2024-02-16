@@ -9,11 +9,20 @@ const EventList = (): JSX.Element => {
 
     return (
         <Flex justify="space-evenly" wrap="wrap" gap="large" align="center">
-            <Event eventList={epicBosses} eventColumns={eventColumns} />
-            <Event eventList={epicBosses} eventColumns={eventColumns} />
             <Event
                 eventList={generateUpdatedTimes(utcDate, teamEvents)}
                 eventColumns={eventColumns}
+                eventsGroup="PVP Events"
+            />
+            <Event
+                eventList={epicBosses}
+                eventColumns={eventColumns}
+                eventsGroup="Raid Bosses"
+            />
+            <Event
+                eventList={epicBosses}
+                eventColumns={eventColumns}
+                eventsGroup="My custom events"
             />
         </Flex>
     );
