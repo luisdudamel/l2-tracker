@@ -34,7 +34,6 @@ const MainLayout = (): JSX.Element => {
                     hour12: false,
                 }
             );
-
             setLocalTime(localUserTime);
         };
 

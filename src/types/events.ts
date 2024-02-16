@@ -1,8 +1,9 @@
 export interface Event {
     key: string;
     eventName: string;
+    serverTime: string;
     localTime: string;
-    timeLeft: string;
+    localTimeLeft: string;
 }
 
 export interface EventColumns {

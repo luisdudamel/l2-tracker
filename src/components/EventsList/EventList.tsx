@@ -1,13 +1,29 @@
 import { Flex } from "antd";
 import Event from "../Event/Event";
 import { epicBosses, eventColumns, teamEvents } from "./events";
+import { generateUpdatedTimes } from "../../utils/timeFunctions";
+import moment from "moment-timezone";
 
 const EventList = (): JSX.Element => {
+    const utcDate = moment.utc().toISOString();
+
     return (
         <Flex justify="space-evenly" wrap="wrap" gap="large" align="center">
-            <Event eventList={epicBosses} eventColumns={eventColumns} />
-            <Event eventList={epicBosses} eventColumns={eventColumns} />
-            <Event eventList={teamEvents} eventColumns={eventColumns} />
+            <Event
+                eventList={generateUpdatedTimes(utcDate, teamEvents)}
+                eventColumns={eventColumns}
+                eventsGroup="PVP Events"
+            />
+            <Event
+                eventList={epicBosses}
+                eventColumns={eventColumns}
+                eventsGroup="Raid Bosses"
+            />
+            <Event
+                eventList={epicBosses}
+                eventColumns={eventColumns}
+                eventsGroup="My custom events"
+            />
         </Flex>
     );
 };
