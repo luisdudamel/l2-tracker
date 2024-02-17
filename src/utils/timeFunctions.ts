@@ -1,10 +1,10 @@
 import moment from "moment-timezone";
-import { Event } from "../types/events";
+import { EpicBossEvent, TeamEvent, Weekdays } from "../types/events";
 
 export const generateUpdatedTimes = (
     currentServerTime: string,
-    events: Event[]
-): Event[] => {
+    events: TeamEvent[] | EpicBossEvent[]
+): TeamEvent[] => {
     const currentDate = new Date(currentServerTime);
     return events
         .map((event) => {
@@ -47,4 +47,52 @@ export const timeDifference = (minutes: number): string => {
         remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
 
     return `${hours}:${formattedMinutes}`;
+};
+
+export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {
+    const now = moment().utc();
+
+    const isTodayEventDay = event.eventDays.includes(
+        now.format("dddd").toLowerCase() as Weekdays
+    );
+
+    if (isTodayEventDay) {
+        event.serverTime = now
+            .hour(Number(event.windowStart.split(":")[0]))
+            .minutes(Number(event.windowStart.split(":")[1]))
+            .format();
+
+        return now.toDate();
+    }
+
+    const isTomorrowEventDay = event.eventDays.includes(
+        now.add(1, "days").format("dddd").toLowerCase() as Weekdays
+    );
+
+    if (isTomorrowEventDay) {
+        const tomorrowEpicServerDate = moment
+            .utc()
+            .add(1, "days")
+            .hour(20)
+            .minutes(0);
+        event.serverTime = tomorrowEpicServerDate.format();
+        return moment().add(1, "days").toDate();
+    }
+
+    for (let i = 1; i <= 6; i++) {
+        const nextDay = moment().utc().add(i, "days");
+        if (
+            event.eventDays.includes(
+                nextDay.format("dddd").toLowerCase() as Weekdays
+            )
+        ) {
+            event.serverTime = nextDay
+                .hour(Number(event.windowStart.split(":")[0]))
+                .minutes(Number(event.windowStart.split(":")[1]))
+                .format();
+            return nextDay.toDate();
+        }
+    }
+
+    return "Never";
 };

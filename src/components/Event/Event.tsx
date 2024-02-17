@@ -1,10 +1,10 @@
 import { Card, Table } from "antd";
-import { Event as EventType, EventColumns } from "../../types/events";
+import { TeamEvent, EventColumns } from "../../types/events";
 import moment from "moment-timezone";
 import { timeDifference } from "../../utils/timeFunctions";
 
 interface EventProps {
-    eventList: EventType[];
+    eventList: TeamEvent[];
     eventColumns: EventColumns[];
     eventsGroup: string;
 }
@@ -21,8 +21,14 @@ const Event = ({
 
         return {
             ...event,
-            localTime: moment.utc(event.localTime).local(true).format("HH:mm"),
-            localTimeLeft: timeDifference(difference),
+            localTime: moment
+                .utc(event.localTime)
+                .local(true)
+                .format("DD/MM - HH:mm"),
+            localTimeLeft:
+                difference < 360
+                    ? timeDifference(difference)
+                    : moment.duration(timeDifference(difference)).humanize(),
         };
     });
 
@@ -32,8 +38,7 @@ const Event = ({
             title={eventsGroup}
             bordered={false}
             style={{
-                width: 400,
-                minHeight: 600,
+                width: 500,
             }}
         >
             <Table
