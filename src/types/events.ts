@@ -1,4 +1,4 @@
-type Weekdays =
+export type Weekdays =
     | "sunday"
     | "monday"
     | "tuesday"

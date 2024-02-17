@@ -21,8 +21,14 @@ const Event = ({
 
         return {
             ...event,
-            localTime: moment.utc(event.localTime).local(true).format("HH:mm"),
-            localTimeLeft: timeDifference(difference),
+            localTime: moment
+                .utc(event.localTime)
+                .local(true)
+                .format("DD/MM - HH:mm"),
+            localTimeLeft:
+                difference < 360
+                    ? timeDifference(difference)
+                    : moment.duration(timeDifference(difference)).humanize(),
         };
     });
 
@@ -32,7 +38,7 @@ const Event = ({
             title={eventsGroup}
             bordered={false}
             style={{
-                width: 400,
+                width: 500,
                 minHeight: 600,
             }}
         >

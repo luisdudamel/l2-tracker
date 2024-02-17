@@ -8,14 +8,14 @@ const EventList = (): JSX.Element => {
     const utcDate = moment.utc().toISOString();
 
     return (
-        <Flex justify="space-evenly" wrap="wrap" gap="large" align="center">
+        <Flex justify="space-evenly" wrap="wrap" gap="large">
             <Event
                 eventList={generateUpdatedTimes(utcDate, teamEvents)}
                 eventColumns={eventColumns}
                 eventsGroup="PVP Events"
             />
             <Event
-                eventList={epicBosses}
+                eventList={generateUpdatedTimes(utcDate, epicBosses)}
                 eventColumns={eventColumns}
                 eventsGroup="Raid Bosses"
             />

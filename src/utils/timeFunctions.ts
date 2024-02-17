@@ -1,11 +1,12 @@
 import moment from "moment-timezone";
-import { EpicBossEvent, TeamEvent } from "../types/events";
+import { EpicBossEvent, TeamEvent, Weekdays } from "../types/events";
 
 export const generateUpdatedTimes = (
     currentServerTime: string,
     events: TeamEvent[] | EpicBossEvent[]
 ): TeamEvent[] => {
     console.log("BEFORE GENERATION", events);
+
     const currentDate = new Date(currentServerTime);
     return events
         .map((event) => {
@@ -50,15 +51,11 @@ export const timeDifference = (minutes: number): string => {
     return `${hours}:${formattedMinutes}`;
 };
 
-export const getNearestEventDay = (event: {
-    eventDays: string[];
-    windowStart: string;
-    serverTime: string;
-}): Date | "Never" => {
+export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {
     const now = moment().utc();
 
     const isTodayEventDay = event.eventDays.includes(
-        now.format("dddd").toLowerCase()
+        now.format("dddd").toLowerCase() as Weekdays
     );
 
     if (isTodayEventDay) {
@@ -66,12 +63,13 @@ export const getNearestEventDay = (event: {
             .hour(Number(event.windowStart.split(":")[0]))
             .minutes(Number(event.windowStart.split(":")[1]))
             .format();
+
         console.log(event);
         return now.toDate();
     }
 
     const isTomorrowEventDay = event.eventDays.includes(
-        now.add(1, "days").format("dddd").toLowerCase()
+        now.add(1, "days").format("dddd").toLowerCase() as Weekdays
     );
 
     if (isTomorrowEventDay) {
@@ -87,7 +85,11 @@ export const getNearestEventDay = (event: {
 
     for (let i = 1; i <= 6; i++) {
         const nextDay = moment().utc().add(i, "days");
-        if (event.eventDays.includes(nextDay.format("dddd").toLowerCase())) {
+        if (
+            event.eventDays.includes(
+                nextDay.format("dddd").toLowerCase() as Weekdays
+            )
+        ) {
             console.log(event);
             event.serverTime = nextDay
                 .hour(Number(event.windowStart.split(":")[0]))

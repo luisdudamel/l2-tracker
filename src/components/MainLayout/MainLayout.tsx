@@ -2,13 +2,8 @@ import { Flex, Layout } from "antd";
 import Header from "../Header/Header";
 import EventList from "../EventsList/EventList";
 import { useEffect, useState } from "react";
-import {
-    generateUpdatedTimes,
-    getNearestEventDay,
-    isEventPast,
-} from "../../utils/timeFunctions";
-import { epicBosses, teamEvents } from "../EventsList/events";
-import moment from "moment-timezone";
+import { updateEpicEventsDates } from "../../utils/timeFunctions";
+import { epicBosses } from "../EventsList/events";
 const { Content } = Layout;
 
 const layoutStyle: React.CSSProperties = {
@@ -30,10 +25,9 @@ const contentStyle: React.CSSProperties = {
 
 const MainLayout = (): JSX.Element => {
     const [currentTime, setLocalTime] = useState<string>("");
-    const utcDate = moment.utc().toISOString();
 
     useEffect(() => {
-        epicBosses.forEach((event) => getNearestEventDay(event));
+        epicBosses.forEach((event) => updateEpicEventsDates(event));
     }, []);
 
     useEffect(() => {

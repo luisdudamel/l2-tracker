@@ -181,12 +181,12 @@ export const eventColumns: EventColumns[] = [
         key: "eventName",
     },
     {
-        title: "Your local time",
+        title: "Event local time",
         dataIndex: "localTime",
         key: "localTime",
     },
     {
-        title: "Time left",
+        title: "Window starts",
         dataIndex: "localTimeLeft",
         key: "localTimeLeft",
     },
