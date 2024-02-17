@@ -1,10 +1,10 @@
 import { Card, Table } from "antd";
-import { Event as EventType, EventColumns } from "../../types/events";
+import { TeamEvent, EventColumns } from "../../types/events";
 import moment from "moment-timezone";
 import { timeDifference } from "../../utils/timeFunctions";
 
 interface EventProps {
-    eventList: EventType[];
+    eventList: TeamEvent[];
     eventColumns: EventColumns[];
     eventsGroup: string;
 }

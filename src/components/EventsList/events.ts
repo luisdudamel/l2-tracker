@@ -1,9 +1,11 @@
-import { Event, EventColumns } from "../../types/events";
+import { TeamEvent, EventColumns, EpicBossEvent } from "../../types/events";
 import moment from "moment-timezone";
 
 const currentDay = moment().utc().format("YYYY-MM-DD");
+const currentServerTime = moment().utc().format();
 
-export const teamEvents: Event[] = [
+console.log(currentServerTime);
+export const teamEvents: TeamEvent[] = [
     {
         key: "1",
         eventName: "Deathmatch",
@@ -89,62 +91,86 @@ export const teamEvents: Event[] = [
         localTimeLeft: "03:25",
     },
 ];
-export const epicBosses: Event[] = [
+export const epicBosses: EpicBossEvent[] = [
     {
         key: "1",
         eventName: "Queen Ant",
         localTime: "01:00",
-        serverTime: "",
+        serverTime: currentServerTime,
         localTimeLeft: "03:25",
+        eventDays: [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+        ],
+        windowStart: "21:30",
     },
     {
         key: "2",
         eventName: "Core",
         localTime: "03:00",
-        serverTime: "",
+        serverTime: currentServerTime,
         localTimeLeft: "04:25",
+        eventDays: ["monday", "tuesday", "wednesday", "thursday", "friday"],
+        windowStart: "19:00",
     },
+
     {
         key: "3",
         eventName: "Orfen",
         localTime: "01:00",
-        serverTime: "",
+        serverTime: currentServerTime,
         localTimeLeft: "03:25",
+        eventDays: ["monday", "tuesday", "wednesday", "thursday", "friday"],
+        windowStart: "19:15",
     },
     {
         key: "4",
         eventName: "Baium",
         localTime: "01:00",
-        serverTime: "",
+        serverTime: currentServerTime,
         localTimeLeft: "03:25",
+        eventDays: ["saturday"],
+        windowStart: "20:00",
     },
     {
         key: "5",
         eventName: "Antharas",
         localTime: "01:00",
-        serverTime: "",
+        serverTime: currentServerTime,
         localTimeLeft: "03:25",
+        eventDays: ["sunday"],
+        windowStart: "20:30",
     },
     {
         key: "6",
         eventName: "Valakas",
         localTime: "01:00",
-        serverTime: "",
+        serverTime: currentServerTime,
         localTimeLeft: "03:25",
+        eventDays: ["sunday"],
+        windowStart: "20:00",
     },
     {
         key: "7",
         eventName: "Zaken",
         localTime: "01:00",
-        serverTime: "",
+        serverTime: currentServerTime,
         localTimeLeft: "03:25",
+        eventDays: ["monday", "wednesday", "friday"],
+        windowStart: "19:30",
     },
     {
         key: "8",
         eventName: "Frintezza",
         localTime: "01:00",
-        serverTime: "",
+        serverTime: currentServerTime,
         localTimeLeft: "03:25",
+        eventDays: ["tuesday", "thursday", "sunday"],
+        windowStart: "19:30",
     },
 ];
 
