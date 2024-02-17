@@ -39,7 +39,6 @@ const Event = ({
             bordered={false}
             style={{
                 width: 500,
-                minHeight: 600,
             }}
         >
             <Table

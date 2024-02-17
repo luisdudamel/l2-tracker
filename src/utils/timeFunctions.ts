@@ -5,8 +5,6 @@ export const generateUpdatedTimes = (
     currentServerTime: string,
     events: TeamEvent[] | EpicBossEvent[]
 ): TeamEvent[] => {
-    console.log("BEFORE GENERATION", events);
-
     const currentDate = new Date(currentServerTime);
     return events
         .map((event) => {
@@ -64,7 +62,6 @@ export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {
             .minutes(Number(event.windowStart.split(":")[1]))
             .format();
 
-        console.log(event);
         return now.toDate();
     }
 
@@ -79,7 +76,6 @@ export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {
             .hour(20)
             .minutes(0);
         event.serverTime = tomorrowEpicServerDate.format();
-        console.log(event);
         return moment().add(1, "days").toDate();
     }
 
@@ -90,7 +86,6 @@ export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {
                 nextDay.format("dddd").toLowerCase() as Weekdays
             )
         ) {
-            console.log(event);
             event.serverTime = nextDay
                 .hour(Number(event.windowStart.split(":")[0]))
                 .minutes(Number(event.windowStart.split(":")[1]))

@@ -8,7 +8,7 @@ const EventList = (): JSX.Element => {
     const utcDate = moment.utc().toISOString();
 
     return (
-        <Flex justify="space-evenly" wrap="wrap" gap="large">
+        <Flex justify="space-evenly" wrap="wrap" gap="large" align="start">
             <Event
                 eventList={generateUpdatedTimes(utcDate, teamEvents)}
                 eventColumns={eventColumns}

@@ -4,7 +4,6 @@ import moment from "moment-timezone";
 const currentDay = moment().utc().format("YYYY-MM-DD");
 const currentServerTime = moment().utc().format();
 
-console.log(currentServerTime);
 export const teamEvents: TeamEvent[] = [
     {
         key: "1",
