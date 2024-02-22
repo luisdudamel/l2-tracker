@@ -1,11 +1,11 @@
-import { Flex, Input } from "antd";
+import { Button, Flex, Input } from "antd";
 import { DatePicker } from "antd";
-import type { DatePickerProps } from "antd";
 import { EventCreatorSyled } from "./EventCreatorStyled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CustomEvent } from "../../types/events";
 import dayjs from "dayjs";
 import moment from "moment-timezone";
+import { updateCustomEvents } from "../../utils/timeFunctions";
 
 const EventCreator = (): JSX.Element => {
     const eventInitialState: CustomEvent = {
@@ -19,12 +19,22 @@ const EventCreator = (): JSX.Element => {
     const [customEvent, setCustomEvent] =
         useState<CustomEvent>(eventInitialState);
 
+    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
+
     const handleEvent = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setCustomEvent({
             ...customEvent,
             [event.target.id]: event.target.value,
         });
     };
+
+    useEffect(() => {
+        if (customEvent.eventName !== "" && customEvent.serverTime !== "") {
+            setIsButtonDisabled(false);
+            return;
+        }
+        setIsButtonDisabled(true);
+    }, [customEvent.eventName, customEvent.serverTime, isButtonDisabled]);
 
     const handleDateChange = (event: dayjs.Dayjs | null | undefined) => {
         if (event) {
@@ -37,7 +47,16 @@ const EventCreator = (): JSX.Element => {
                 ...customEvent,
                 serverTime: customEventToServerUTC,
             });
+            return;
         }
+        setCustomEvent({
+            ...customEvent,
+            serverTime: "",
+        });
+    };
+
+    const handleSubmit = () => {
+        updateCustomEvents(customEvent);
     };
 
     return (
@@ -52,10 +71,20 @@ const EventCreator = (): JSX.Element => {
                     />
                 </div>
                 <DatePicker
+                    placeholder="Select event local time"
                     allowClear
+                    needConfirm={false}
                     showTime
-                    onOk={(event) => handleDateChange(event)}
+                    onCalendarChange={(event) =>
+                        handleDateChange(event as dayjs.Dayjs)
+                    }
                 />
+                <Button
+                    onClick={() => handleSubmit()}
+                    disabled={isButtonDisabled}
+                >
+                    Create event
+                </Button>
             </Flex>
         </EventCreatorSyled>
     );

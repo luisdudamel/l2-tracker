@@ -1,5 +1,10 @@
 import moment from "moment-timezone";
-import { EpicBossEvent, TeamEvent, Weekdays } from "../types/events";
+import {
+    CustomEvent,
+    EpicBossEvent,
+    TeamEvent,
+    Weekdays,
+} from "../types/events";
 
 export const generateUpdatedTimes = (
     currentServerTime: string,
@@ -93,4 +98,13 @@ export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {
     }
 
     return "Never";
+};
+
+export const updateCustomEvents = (customEvent: CustomEvent) => {
+    const storedCustomEvents = JSON.parse(
+        localStorage.getItem("customEvents") || "[]"
+    );
+
+    storedCustomEvents.push(customEvent);
+    localStorage.setItem("customEvents", JSON.stringify(storedCustomEvents));
 };
