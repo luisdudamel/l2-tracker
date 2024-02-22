@@ -108,3 +108,16 @@ export const updateCustomEventsOnStorage = (customEvent: UserCustomEvent) => {
     storedCustomEvents.push(customEvent);
     localStorage.setItem("customEvents", JSON.stringify(storedCustomEvents));
 };
+
+export const getNextKey = (currentUserEvents: UserCustomEvent[]): number => {
+    if (!currentUserEvents.length) {
+        return 1;
+    }
+
+    const maxId = Math.max(
+        ...currentUserEvents.map((currentEvent) =>
+            parseInt(currentEvent.key, 10)
+        )
+    );
+    return isNaN(maxId) ? 1 : maxId + 1;
+};

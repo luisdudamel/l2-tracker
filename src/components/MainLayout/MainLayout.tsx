@@ -71,7 +71,10 @@ const MainLayout = (): JSX.Element => {
                         setCurrentCustomEvents={setCustomEvents}
                         currentCustomEvents={customEvents}
                     />
-                    <EventList currentCustomEvents={customEvents} />
+                    <EventList
+                        setCurrentCustomEvents={setCustomEvents}
+                        currentCustomEvents={customEvents}
+                    />
                 </div>
             </StyledLayout>
         </Flex>

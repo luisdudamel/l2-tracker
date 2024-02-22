@@ -10,9 +10,23 @@ import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 interface EventListProps {
     currentCustomEvents: UserCustomEvent[];
+    setCurrentCustomEvents: React.Dispatch<
+        React.SetStateAction<UserCustomEvent[]>
+    >;
 }
 
-const EventList = ({ currentCustomEvents }: EventListProps): JSX.Element => {
+const EventList = ({
+    currentCustomEvents,
+    setCurrentCustomEvents,
+}: EventListProps): JSX.Element => {
+    const handleDeleteEvent = (eventId: string) => {
+        setCurrentCustomEvents(
+            currentCustomEvents.filter(
+                (customEvent) => customEvent.key !== eventId
+            )
+        );
+    };
+
     const customEventColumns: TableProps<EventColumns>["columns"] = [
         {
             title: "Event",
@@ -31,7 +45,12 @@ const EventList = ({ currentCustomEvents }: EventListProps): JSX.Element => {
         },
         {
             title: "Delete",
-            render: () => <FontAwesomeIcon icon={faTrashCan} />,
+            render: (_, userEvent) => (
+                <FontAwesomeIcon
+                    onClick={() => handleDeleteEvent(userEvent.key)}
+                    icon={faTrashCan}
+                />
+            ),
             key: "deleteButton",
         },
     ];
