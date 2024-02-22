@@ -33,14 +33,7 @@ const Event = ({
     });
 
     return (
-        <Card
-            size="default"
-            title={eventsGroup}
-            bordered={false}
-            style={{
-                width: 500,
-            }}
-        >
+        <Card size="default" title={eventsGroup} bordered={false}>
             <Table
                 pagination={false}
                 dataSource={eventLocalTimes}

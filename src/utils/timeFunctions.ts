@@ -24,8 +24,6 @@ export const generateUpdatedTimes = (
             };
         })
         .sort((a, b) => {
-            if (a.eventDate < b.eventDate) return -1;
-            if (a.eventDate > b.eventDate) return 1;
             return a.timeDifference - b.timeDifference;
         })
         .map((event, index) => {
@@ -46,7 +44,7 @@ export const timeDifference = (minutes: number): string => {
     const formattedMinutes =
         remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
 
-    return `${hours}:${formattedMinutes}`;
+    return `0${hours}:${formattedMinutes}`;
 };
 
 export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {

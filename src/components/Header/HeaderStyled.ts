@@ -6,14 +6,16 @@ export const HeaderStyled = styled.header`
     background-color: black;
     border-radius: 0 0 12px 12px;
     padding-top: 2em;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding-left: 10em;
+    padding-right: 10em;
     height: 150px;
-    @media (max-width: 600px) {
+    justify-content: center;
+    @media (max-width: 800px) {
         flex-direction: column;
-        height: 15em;
+        height: 20em;
         gap: 20px;
         justify-content: center;
+        padding: 0;
     }
 
     .header {
@@ -26,7 +28,16 @@ export const HeaderStyled = styled.header`
 
                 @media (max-width: 600px) {
                     align-items: center;
+                    flex-direction: column;
                 }
+            }
+        }
+        &-container {
+            width: 100%;
+            max-width: 1600px;
+            display: flex;
+            @media (max-width: 800px) {
+                flex-direction: column;
             }
         }
     }
