@@ -7,6 +7,8 @@ import { epicBosses } from "../EventsList/events";
 import EventCreator from "../EventCreator/EventCreator";
 import { StyledLayout } from "./StyledLayout";
 import { UserCustomEvent } from "../../types/events";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-regular-svg-icons";
 
 const MainLayout = (): JSX.Element => {
     const [customEvents, setCustomEvents] = useState<UserCustomEvent[]>([]);
@@ -44,6 +46,10 @@ const MainLayout = (): JSX.Element => {
         const storedCustomEvents = JSON.parse(
             localStorage.getItem("customEvents") || "[]"
         ) as UserCustomEvent[];
+
+        storedCustomEvents.forEach((customEvent) => {
+            customEvent.deleteButton = <FontAwesomeIcon icon={faEdit} />;
+        });
 
         setCustomEvents(storedCustomEvents);
     }, []);

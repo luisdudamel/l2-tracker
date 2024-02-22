@@ -1,11 +1,18 @@
-import { Card, Table } from "antd";
-import { TeamEvent, EventColumns } from "../../types/events";
+import { Card, Table, TableProps } from "antd";
+import {
+    TeamEvent,
+    EventColumns,
+    CustomEventColumns,
+} from "../../types/events";
 import moment from "moment-timezone";
 import { timeDifference } from "../../utils/timeFunctions";
 
 interface EventProps {
     eventList: TeamEvent[];
-    eventColumns: EventColumns[];
+    eventColumns:
+        | EventColumns[]
+        | CustomEventColumns[]
+        | TableProps<EventColumns>["columns"];
     eventsGroup: string;
 }
 
@@ -37,7 +44,7 @@ const Event = ({
             <Table
                 pagination={false}
                 dataSource={eventLocalTimes}
-                columns={eventColumns}
+                columns={eventColumns as EventColumns[]}
             />
         </Card>
     );

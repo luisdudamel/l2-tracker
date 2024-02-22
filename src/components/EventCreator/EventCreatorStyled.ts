@@ -7,7 +7,7 @@ export const EventCreatorSyled = styled.section`
     max-width: 2000px;
     align-items: center;
 
-    .datepicker {
-        background-color: red;
+    @media (max-width: 800px) {
+        height: 200px;
     }
 `;
