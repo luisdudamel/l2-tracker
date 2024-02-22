@@ -10,7 +10,7 @@ const Header = ({ localTime }: HeaderProps): JSX.Element => {
         <HeaderStyled>
             <div className="header-container">
                 <div className="header-title__container">
-                    <TitleStyled>Lineage 2</TitleStyled>
+                    <TitleStyled>Reborn Eternal IL</TitleStyled>
                     <SubtitleStyled>TIME TRACKER</SubtitleStyled>
                 </div>
                 <LocalTime localTime={localTime} />

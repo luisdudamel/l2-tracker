@@ -6,4 +6,8 @@ export const EventCreatorSyled = styled.section`
     padding: 0 30px;
     max-width: 2000px;
     align-items: center;
+
+    .datepicker {
+        background-color: red;
+    }
 `;

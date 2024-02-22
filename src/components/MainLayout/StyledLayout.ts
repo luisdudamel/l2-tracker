@@ -7,4 +7,8 @@ export const StyledLayout = styled.div`
     flex-direction: column;
     width: 100%;
     align-items: center;
+
+    .content-container {
+        padding-top: 30px;
+    }
 `;

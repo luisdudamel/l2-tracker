@@ -7,7 +7,7 @@ export type Weekdays =
     | "friday"
     | "saturday";
 
-export interface TeamEvent {
+interface Event {
     key: string;
     eventName: string;
     serverTime: string;
@@ -15,12 +15,13 @@ export interface TeamEvent {
     localTimeLeft: string;
 }
 
-export interface EpicBossEvent {
-    key: string;
-    eventName: string;
-    serverTime: string;
-    localTime: string;
-    localTimeLeft: string;
+export interface TeamEvent extends Event {}
+
+export interface CustomEvent extends TeamEvent {
+    windowStart: string;
+}
+
+export interface EpicBossEvent extends Event {
     eventDays: Weekdays[];
     windowStart: string;
 }

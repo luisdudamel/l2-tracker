@@ -8,14 +8,13 @@ export const HeaderStyled = styled.header`
     padding-top: 2em;
     padding-left: 10em;
     padding-right: 10em;
-    height: 150px;
     justify-content: center;
     @media (max-width: 800px) {
         flex-direction: column;
         height: 20em;
         gap: 20px;
         justify-content: center;
-        padding: 0;
+        padding: 0 1em;
     }
 
     .header {
@@ -26,7 +25,7 @@ export const HeaderStyled = styled.header`
                 height: 100%;
                 width: 100%;
 
-                @media (max-width: 600px) {
+                @media (max-width: 800px) {
                     align-items: center;
                     flex-direction: column;
                 }
@@ -50,6 +49,10 @@ export const TitleStyled = styled.h1`
     font-size: 3rem;
     top: -0.7em;
     margin: 0;
+
+    @media (max-width: 800px) {
+        font-size: 2rem;
+    }
 `;
 
 export const SubtitleStyled = styled.h2`
@@ -57,4 +60,8 @@ export const SubtitleStyled = styled.h2`
     top: 3em;
     margin: 0;
     height: 100%;
+
+    @media (max-width: 800px) {
+        font-size: 1rem;
+    }
 `;
