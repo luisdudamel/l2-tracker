@@ -2,13 +2,24 @@ import { Button, Flex, Input } from "antd";
 import { DatePicker } from "antd";
 import { EventCreatorSyled } from "./EventCreatorStyled";
 import { useEffect, useState } from "react";
-import { CustomEvent } from "../../types/events";
+import { UserCustomEvent } from "../../types/events";
 import dayjs from "dayjs";
 import moment from "moment-timezone";
 import { updateCustomEvents } from "../../utils/timeFunctions";
 
-const EventCreator = (): JSX.Element => {
-    const eventInitialState: CustomEvent = {
+interface EventCreatorProps {
+    currentCustomEvents: UserCustomEvent[];
+    setCurrentCustomEvents: React.Dispatch<
+        React.SetStateAction<UserCustomEvent[]>
+    >;
+}
+
+const EventCreator = ({
+    currentCustomEvents,
+    setCurrentCustomEvents,
+}: EventCreatorProps): JSX.Element => {
+    console.log(currentCustomEvents);
+    const eventInitialState: UserCustomEvent = {
         eventName: "",
         key: "",
         localTime: "",
@@ -17,7 +28,7 @@ const EventCreator = (): JSX.Element => {
         windowStart: "",
     };
     const [customEvent, setCustomEvent] =
-        useState<CustomEvent>(eventInitialState);
+        useState<UserCustomEvent>(eventInitialState);
 
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
@@ -57,6 +68,7 @@ const EventCreator = (): JSX.Element => {
 
     const handleSubmit = () => {
         updateCustomEvents(customEvent);
+        setCurrentCustomEvents([...currentCustomEvents, customEvent]);
     };
 
     return (

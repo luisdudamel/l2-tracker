@@ -17,7 +17,7 @@ interface Event {
 
 export interface TeamEvent extends Event {}
 
-export interface CustomEvent extends TeamEvent {
+export interface UserCustomEvent extends TeamEvent {
     windowStart: string;
 }
 

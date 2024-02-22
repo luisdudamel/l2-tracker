@@ -1,6 +1,6 @@
 import moment from "moment-timezone";
 import {
-    CustomEvent,
+    UserCustomEvent,
     EpicBossEvent,
     TeamEvent,
     Weekdays,
@@ -100,7 +100,7 @@ export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {
     return "Never";
 };
 
-export const updateCustomEvents = (customEvent: CustomEvent) => {
+export const updateCustomEvents = (customEvent: UserCustomEvent) => {
     const storedCustomEvents = JSON.parse(
         localStorage.getItem("customEvents") || "[]"
     );

@@ -6,8 +6,10 @@ import { updateEpicEventsDates } from "../../utils/timeFunctions";
 import { epicBosses } from "../EventsList/events";
 import EventCreator from "../EventCreator/EventCreator";
 import { StyledLayout } from "./StyledLayout";
+import { UserCustomEvent } from "../../types/events";
 
 const MainLayout = (): JSX.Element => {
+    const [customEvents, setCustomEvents] = useState<UserCustomEvent[]>([]);
     const [currentTime, setLocalTime] = useState<string>("");
 
     useEffect(() => {
@@ -38,6 +40,14 @@ const MainLayout = (): JSX.Element => {
         return () => clearInterval(intervalId);
     }, []);
 
+    useEffect(() => {
+        const storedCustomEvents = JSON.parse(
+            localStorage.getItem("customEvents") || "[]"
+        ) as UserCustomEvent[];
+
+        setCustomEvents(storedCustomEvents);
+    }, []);
+
     const getUserLocale = (): string => {
         if (navigator.languages && navigator.languages.length) {
             return navigator.languages[0];
@@ -51,7 +61,10 @@ const MainLayout = (): JSX.Element => {
             <StyledLayout>
                 <Header localTime={currentTime} />
                 <div className="content-container">
-                    <EventCreator />
+                    <EventCreator
+                        setCurrentCustomEvents={setCustomEvents}
+                        currentCustomEvents={customEvents}
+                    />
                     <EventList />
                 </div>
             </StyledLayout>
