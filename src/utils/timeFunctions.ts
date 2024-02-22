@@ -8,7 +8,7 @@ import {
 
 export const generateUpdatedTimes = (
     currentServerTime: string,
-    events: TeamEvent[] | EpicBossEvent[]
+    events: TeamEvent[] | EpicBossEvent[] | UserCustomEvent[]
 ): TeamEvent[] => {
     const currentDate = new Date(currentServerTime);
     return events
@@ -100,7 +100,7 @@ export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {
     return "Never";
 };
 
-export const updateCustomEvents = (customEvent: UserCustomEvent) => {
+export const updateCustomEventsOnStorage = (customEvent: UserCustomEvent) => {
     const storedCustomEvents = JSON.parse(
         localStorage.getItem("customEvents") || "[]"
     );

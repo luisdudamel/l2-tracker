@@ -4,15 +4,23 @@ import { epicBosses, eventColumns, teamEvents } from "./events";
 import { generateUpdatedTimes } from "../../utils/timeFunctions";
 import moment from "moment-timezone";
 import { EventListStyled } from "./EventListStyled";
+import { UserCustomEvent } from "../../types/events";
 
-const EventList = (): JSX.Element => {
+interface EventListProps {
+    currentCustomEvents: UserCustomEvent[];
+}
+
+const EventList = ({ currentCustomEvents }: EventListProps): JSX.Element => {
     const utcDate = moment.utc().toISOString();
 
     return (
         <EventListStyled>
             <Flex justify="space-evenly" wrap="wrap" gap="large" align="start">
                 <Event
-                    eventList={epicBosses}
+                    eventList={generateUpdatedTimes(
+                        utcDate,
+                        currentCustomEvents
+                    )}
                     eventColumns={eventColumns}
                     eventsGroup="My custom events"
                 />

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { UserCustomEvent } from "../../types/events";
 import dayjs from "dayjs";
 import moment from "moment-timezone";
-import { updateCustomEvents } from "../../utils/timeFunctions";
+import { updateCustomEventsOnStorage } from "../../utils/timeFunctions";
 
 interface EventCreatorProps {
     currentCustomEvents: UserCustomEvent[];
@@ -18,7 +18,6 @@ const EventCreator = ({
     currentCustomEvents,
     setCurrentCustomEvents,
 }: EventCreatorProps): JSX.Element => {
-    console.log(currentCustomEvents);
     const eventInitialState: UserCustomEvent = {
         eventName: "",
         key: "",
@@ -67,7 +66,7 @@ const EventCreator = ({
     };
 
     const handleSubmit = () => {
-        updateCustomEvents(customEvent);
+        updateCustomEventsOnStorage(customEvent);
         setCurrentCustomEvents([...currentCustomEvents, customEvent]);
     };
 
