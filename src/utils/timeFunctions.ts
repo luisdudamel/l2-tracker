@@ -16,8 +16,10 @@ export const generateUpdatedTimes = (
         .map((event) => {
             const eventDate = new Date(event.serverTime);
             if (eventDate < currentDate && eventDate.getHours() < 24) {
-                eventDate.setHours(new Date(event.serverTime).getHours());
-                eventDate.setDate(eventDate.getDate() + 1);
+                if (!event.isCustomEvent) {
+                    eventDate.setHours(new Date(event.serverTime).getHours());
+                    eventDate.setDate(eventDate.getDate() + 1);
+                }
             }
             const timeDifference = eventDate.getTime() - currentDate.getTime();
 

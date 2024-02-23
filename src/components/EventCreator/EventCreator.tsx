@@ -72,6 +72,7 @@ const EventCreator = ({
     const handleSubmit = () => {
         updateCustomEventsOnStorage([...currentCustomEvents, customEvent]);
         setCurrentCustomEvents([...currentCustomEvents, customEvent]);
+        setCustomEvent(eventInitialState);
     };
 
     return (
@@ -80,6 +81,7 @@ const EventCreator = ({
                 <div className="event__name-container">
                     <Input
                         id="eventName"
+                        value={customEvent.eventName}
                         allowClear
                         placeholder="Enter your event name"
                         onChange={(event) => handleEvent(event)}
