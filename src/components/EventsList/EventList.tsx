@@ -6,10 +6,11 @@ import {
     updateCustomEventsOnStorage,
 } from "../../utils/timeFunctions";
 import moment from "moment-timezone";
-import { EventListStyled } from "./EventListStyled";
+
 import { EventColumns, UserCustomEvent } from "../../types/events";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { EventListStyled } from "./EventListStyled";
 
 interface EventListProps {
     currentCustomEvents: UserCustomEvent[];
