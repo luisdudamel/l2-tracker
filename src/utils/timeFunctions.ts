@@ -35,6 +35,7 @@ export const generateUpdatedTimes = (
             if (event.event.isCustomEvent) {
                 return {
                     key: (index + 1).toString(),
+                    id: (event.event as UserCustomEvent).id,
                     eventName: event.event.eventName,
                     localTime: moment(event.event.serverTime)
                         .utc(true)
@@ -114,16 +115,13 @@ export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {
     return "Never";
 };
 
-export const updateCustomEventsOnStorage = (customEvent: UserCustomEvent) => {
-    const storedCustomEvents = JSON.parse(
-        localStorage.getItem("customEvents") || "[]"
-    ) as UserCustomEvent[];
-
-    storedCustomEvents.push(customEvent);
-    storedCustomEvents.forEach(
+export const updateCustomEventsOnStorage = (
+    customEvents: UserCustomEvent[]
+) => {
+    customEvents.forEach(
         (event, index) => (event.key = (index + 1).toString())
     );
-    localStorage.setItem("customEvents", JSON.stringify(storedCustomEvents));
+    localStorage.setItem("customEvents", JSON.stringify(customEvents));
 };
 
 export const deleteCustomEventOnStorage = (eventKey: string) => {
@@ -147,9 +145,7 @@ export const getNextKey = (currentUserEvents: UserCustomEvent[]): number => {
     }
 
     const maxId = Math.max(
-        ...currentUserEvents.map((currentEvent) =>
-            parseInt(currentEvent.key, 10)
-        )
+        ...currentUserEvents.map((currentEvent) => currentEvent.id)
     );
     return isNaN(maxId) ? 1 : maxId + 1;
 };

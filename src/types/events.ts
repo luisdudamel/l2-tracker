@@ -21,6 +21,7 @@ export type TeamEvent = Event;
 export type UserCustomEvent = TeamEvent & {
     windowStart: string;
     deleteButton?: JSX.Element;
+    id: number;
 };
 
 export type EpicBossEvent = Event & {

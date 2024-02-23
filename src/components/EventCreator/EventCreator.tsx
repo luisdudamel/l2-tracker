@@ -5,7 +5,10 @@ import { useEffect, useState } from "react";
 import { UserCustomEvent } from "../../types/events";
 import dayjs from "dayjs";
 import moment from "moment-timezone";
-import { updateCustomEventsOnStorage } from "../../utils/timeFunctions";
+import {
+    getNextKey,
+    updateCustomEventsOnStorage,
+} from "../../utils/timeFunctions";
 
 interface EventCreatorProps {
     currentCustomEvents: UserCustomEvent[];
@@ -22,6 +25,7 @@ const EventCreator = ({
         isCustomEvent: true,
         eventName: "",
         key: "",
+        id: 0,
         localTime: "",
         localTimeLeft: "",
         serverTime: "",
@@ -36,6 +40,7 @@ const EventCreator = ({
         setCustomEvent({
             ...customEvent,
             [event.target.id]: event.target.value,
+            id: getNextKey(currentCustomEvents),
         });
     };
 
@@ -65,7 +70,7 @@ const EventCreator = ({
     };
 
     const handleSubmit = () => {
-        updateCustomEventsOnStorage(customEvent);
+        updateCustomEventsOnStorage([...currentCustomEvents, customEvent]);
         setCurrentCustomEvents([...currentCustomEvents, customEvent]);
     };
 
@@ -89,6 +94,7 @@ const EventCreator = ({
                     onCalendarChange={(event) =>
                         handleDateChange(event as dayjs.Dayjs)
                     }
+                    value={null}
                 />
                 <Button
                     onClick={() => handleSubmit()}
