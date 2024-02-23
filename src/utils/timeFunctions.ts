@@ -9,8 +9,9 @@ import {
 export const generateUpdatedTimes = (
     currentServerTime: string,
     events: TeamEvent[] | EpicBossEvent[] | UserCustomEvent[]
-): TeamEvent[] => {
+): TeamEvent[] | UserCustomEvent[] => {
     const currentDate = new Date(currentServerTime);
+
     return events
         .map((event) => {
             const eventDate = new Date(event.serverTime);
@@ -18,7 +19,6 @@ export const generateUpdatedTimes = (
                 eventDate.setHours(new Date(event.serverTime).getHours());
                 eventDate.setDate(eventDate.getDate() + 1);
             }
-
             const timeDifference = eventDate.getTime() - currentDate.getTime();
 
             return {
@@ -32,12 +32,26 @@ export const generateUpdatedTimes = (
             return a.timeDifference - b.timeDifference;
         })
         .map((event, index) => {
+            if (event.event.isCustomEvent) {
+                return {
+                    key: (index + 1).toString(),
+                    eventName: event.event.eventName,
+                    localTime: moment(event.event.serverTime)
+                        .utc(true)
+                        .format(),
+                    serverTime: event.time,
+                    localTimeLeft: "",
+                    isCustomEvent: event.event.isCustomEvent,
+                };
+            }
+
             return {
                 key: (index + 1).toString(),
                 eventName: event.event.eventName,
                 localTime: moment(event.eventDate).utc(true).format(),
                 serverTime: event.time,
                 localTimeLeft: "",
+                isCustomEvent: event.event.isCustomEvent,
             };
         });
 };

@@ -73,16 +73,20 @@ const EventList = ({
                     eventColumns={customEventColumns as EventColumns[]}
                     eventsGroup="My custom events"
                 />
-                <Event
-                    eventList={generateUpdatedTimes(utcDate, teamEvents)}
-                    eventColumns={eventColumns}
-                    eventsGroup="PVP Events"
-                />
-                <Event
-                    eventList={generateUpdatedTimes(utcDate, epicBosses)}
-                    eventColumns={eventColumns}
-                    eventsGroup="Raid Bosses"
-                />
+                {
+                    <Event
+                        eventList={generateUpdatedTimes(utcDate, teamEvents)}
+                        eventColumns={eventColumns}
+                        eventsGroup="PVP Events"
+                    />
+                }
+                {
+                    <Event
+                        eventList={generateUpdatedTimes(utcDate, epicBosses)}
+                        eventColumns={eventColumns}
+                        eventsGroup="Raid Bosses"
+                    />
+                }
             </Flex>
         </EventListStyled>
     );

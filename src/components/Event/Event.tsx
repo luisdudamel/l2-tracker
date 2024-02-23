@@ -25,7 +25,6 @@ const Event = ({
         const eventTime = moment.utc(event.serverTime);
         const userTime = moment.now();
         const difference = eventTime.diff(userTime, "m");
-
         return {
             ...event,
             localTime: moment

@@ -19,6 +19,7 @@ const EventCreator = ({
     setCurrentCustomEvents,
 }: EventCreatorProps): JSX.Element => {
     const eventInitialState: UserCustomEvent = {
+        isCustomEvent: true,
         eventName: "",
         key: "",
         localTime: "",
@@ -49,10 +50,8 @@ const EventCreator = ({
     const handleDateChange = (event: dayjs.Dayjs | null | undefined) => {
         if (event) {
             const customEventToServerUTC = moment
-                .tz(dayjs(event).toISOString(), "YYYY-MM-DDTHH:mm:ssZ")
-                .utc()
+                .utc(dayjs(event).add(1, "hour").format())
                 .format();
-
             setCustomEvent({
                 ...customEvent,
                 serverTime: customEventToServerUTC,
@@ -82,10 +81,11 @@ const EventCreator = ({
                     />
                 </div>
                 <DatePicker
-                    placeholder="Select event local time"
+                    placeholder="Select event server time"
                     allowClear
                     needConfirm={false}
                     showTime
+                    minDate={dayjs()}
                     onCalendarChange={(event) =>
                         handleDateChange(event as dayjs.Dayjs)
                     }

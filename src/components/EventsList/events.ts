@@ -11,6 +11,7 @@ export const teamEvents: TeamEvent[] = [
         localTime: ``,
         serverTime: `${currentDay}T00:00:00.000Z`,
         localTimeLeft: "03:25",
+        isCustomEvent: false,
     },
     {
         key: "2",
@@ -18,6 +19,7 @@ export const teamEvents: TeamEvent[] = [
         localTime: "03:00",
         serverTime: `${currentDay}T02:00:00.000Z`,
         localTimeLeft: "04:25",
+        isCustomEvent: false,
     },
     {
         key: "3",
@@ -25,6 +27,7 @@ export const teamEvents: TeamEvent[] = [
         localTime: "01:00",
         serverTime: `${currentDay}T04:00:00.000Z`,
         localTimeLeft: "03:25",
+        isCustomEvent: false,
     },
     {
         key: "4",
@@ -32,6 +35,7 @@ export const teamEvents: TeamEvent[] = [
         localTime: "01:00",
         serverTime: `${currentDay}T06:00:00.000Z`,
         localTimeLeft: "03:25",
+        isCustomEvent: false,
     },
     {
         key: "5",
@@ -39,6 +43,7 @@ export const teamEvents: TeamEvent[] = [
         localTime: "01:00",
         serverTime: `${currentDay}T08:00:00.000Z`,
         localTimeLeft: "03:25",
+        isCustomEvent: false,
     },
     {
         key: "6",
@@ -46,6 +51,7 @@ export const teamEvents: TeamEvent[] = [
         localTime: "01:00",
         serverTime: `${currentDay}T10:00:00.000Z`,
         localTimeLeft: "03:25",
+        isCustomEvent: false,
     },
     {
         key: "7",
@@ -53,6 +59,7 @@ export const teamEvents: TeamEvent[] = [
         localTime: "01:00",
         serverTime: `${currentDay}T12:00:00.000Z`,
         localTimeLeft: "03:25",
+        isCustomEvent: false,
     },
     {
         key: "8",
@@ -60,6 +67,7 @@ export const teamEvents: TeamEvent[] = [
         localTime: "01:00",
         serverTime: `${currentDay}T14:00:00.000Z`,
         localTimeLeft: "03:25",
+        isCustomEvent: false,
     },
     {
         key: "9",
@@ -67,6 +75,7 @@ export const teamEvents: TeamEvent[] = [
         localTime: "01:00",
         serverTime: `${currentDay}T16:00:00.000Z`,
         localTimeLeft: "03:25",
+        isCustomEvent: false,
     },
     {
         key: "10",
@@ -74,6 +83,7 @@ export const teamEvents: TeamEvent[] = [
         localTime: "01:00",
         serverTime: `${currentDay}T18:00:00.000Z`,
         localTimeLeft: "03:25",
+        isCustomEvent: false,
     },
     {
         key: "11",
@@ -81,6 +91,7 @@ export const teamEvents: TeamEvent[] = [
         localTime: "01:00",
         serverTime: `${currentDay}T20:00:00.000Z`,
         localTimeLeft: "03:25",
+        isCustomEvent: false,
     },
     {
         key: "12",
@@ -88,6 +99,7 @@ export const teamEvents: TeamEvent[] = [
         localTime: "01:00",
         serverTime: `${currentDay}T22:00:00.000Z`,
         localTimeLeft: "03:25",
+        isCustomEvent: false,
     },
 ];
 export const epicBosses: EpicBossEvent[] = [
@@ -106,6 +118,7 @@ export const epicBosses: EpicBossEvent[] = [
             "saturday",
         ],
         windowStart: "21:30",
+        isCustomEvent: false,
     },
     {
         key: "2",
@@ -115,6 +128,7 @@ export const epicBosses: EpicBossEvent[] = [
         localTimeLeft: "04:25",
         eventDays: ["monday", "tuesday", "wednesday", "thursday", "friday"],
         windowStart: "19:00",
+        isCustomEvent: false,
     },
 
     {
@@ -125,6 +139,7 @@ export const epicBosses: EpicBossEvent[] = [
         localTimeLeft: "03:25",
         eventDays: ["monday", "tuesday", "wednesday", "thursday", "friday"],
         windowStart: "19:15",
+        isCustomEvent: false,
     },
     {
         key: "4",
@@ -134,6 +149,7 @@ export const epicBosses: EpicBossEvent[] = [
         localTimeLeft: "03:25",
         eventDays: ["saturday"],
         windowStart: "20:00",
+        isCustomEvent: false,
     },
     {
         key: "5",
@@ -143,6 +159,7 @@ export const epicBosses: EpicBossEvent[] = [
         localTimeLeft: "03:25",
         eventDays: ["sunday"],
         windowStart: "20:30",
+        isCustomEvent: false,
     },
     {
         key: "6",
@@ -152,6 +169,7 @@ export const epicBosses: EpicBossEvent[] = [
         localTimeLeft: "03:25",
         eventDays: ["sunday"],
         windowStart: "20:00",
+        isCustomEvent: false,
     },
     {
         key: "7",
@@ -161,6 +179,7 @@ export const epicBosses: EpicBossEvent[] = [
         localTimeLeft: "03:25",
         eventDays: ["monday", "wednesday", "friday"],
         windowStart: "19:30",
+        isCustomEvent: false,
     },
     {
         key: "8",
@@ -170,6 +189,7 @@ export const epicBosses: EpicBossEvent[] = [
         localTimeLeft: "03:25",
         eventDays: ["tuesday", "thursday", "sunday"],
         windowStart: "19:30",
+        isCustomEvent: false,
     },
 ];
 
