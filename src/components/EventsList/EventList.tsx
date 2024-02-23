@@ -1,7 +1,10 @@
 import { Flex, TableProps } from "antd";
 import Event from "../Event/Event";
 import { epicBosses, eventColumns, teamEvents } from "./events";
-import { generateUpdatedTimes } from "../../utils/timeFunctions";
+import {
+    deleteCustomEventOnStorage,
+    generateUpdatedTimes,
+} from "../../utils/timeFunctions";
 import moment from "moment-timezone";
 import { EventListStyled } from "./EventListStyled";
 import { EventColumns, UserCustomEvent } from "../../types/events";
@@ -20,6 +23,7 @@ const EventList = ({
     setCurrentCustomEvents,
 }: EventListProps): JSX.Element => {
     const handleDeleteEvent = (eventId: string) => {
+        deleteCustomEventOnStorage(eventId);
         setCurrentCustomEvents(
             currentCustomEvents.filter(
                 (customEvent) => customEvent.key !== eventId
@@ -27,7 +31,7 @@ const EventList = ({
         );
     };
 
-    const customEventColumns: TableProps<EventColumns>["columns"] = [
+    const customEventColumns: TableProps<UserCustomEvent>["columns"] = [
         {
             title: "Event",
             dataIndex: "eventName",
@@ -45,9 +49,10 @@ const EventList = ({
         },
         {
             title: "Delete",
-            render: (_, userEvent) => (
+            render: (_, { key }: UserCustomEvent) => (
                 <FontAwesomeIcon
-                    onClick={() => handleDeleteEvent(userEvent.key)}
+                    className="delete-button"
+                    onClick={() => handleDeleteEvent(key)}
                     icon={faTrashCan}
                 />
             ),
@@ -65,7 +70,7 @@ const EventList = ({
                         utcDate,
                         currentCustomEvents
                     )}
-                    eventColumns={customEventColumns}
+                    eventColumns={customEventColumns as EventColumns[]}
                     eventsGroup="My custom events"
                 />
                 <Event

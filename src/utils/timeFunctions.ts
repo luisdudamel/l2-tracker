@@ -103,10 +103,28 @@ export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {
 export const updateCustomEventsOnStorage = (customEvent: UserCustomEvent) => {
     const storedCustomEvents = JSON.parse(
         localStorage.getItem("customEvents") || "[]"
-    );
+    ) as UserCustomEvent[];
 
     storedCustomEvents.push(customEvent);
+    storedCustomEvents.forEach(
+        (event, index) => (event.key = (index + 1).toString())
+    );
     localStorage.setItem("customEvents", JSON.stringify(storedCustomEvents));
+};
+
+export const deleteCustomEventOnStorage = (eventKey: string) => {
+    const storedCustomEvents = JSON.parse(
+        localStorage.getItem("customEvents") || "[]"
+    ) as UserCustomEvent[];
+    localStorage.removeItem("customEvents");
+
+    const filteredEvents = storedCustomEvents.filter(
+        (event) => event.key !== eventKey
+    );
+    filteredEvents.forEach(
+        (event, index) => (event.key = (index + 1).toString())
+    );
+    localStorage.setItem("customEvents", JSON.stringify(filteredEvents));
 };
 
 export const getNextKey = (currentUserEvents: UserCustomEvent[]): number => {
