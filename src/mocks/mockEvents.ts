@@ -9,6 +9,7 @@ export const mockRaidBosses: EpicBossEvent[] = [
         serverTime: "13:00",
         eventDays: ["saturday"],
         windowStart: "20:00",
+        isCustomEvent: false,
     },
     {
         eventName: "Valakas",
@@ -18,5 +19,6 @@ export const mockRaidBosses: EpicBossEvent[] = [
         serverTime: "13:00",
         eventDays: ["saturday"],
         windowStart: "20:00",
+        isCustomEvent: false,
     },
 ];
