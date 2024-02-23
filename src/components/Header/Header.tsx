@@ -8,11 +8,13 @@ interface HeaderProps {
 const Header = ({ localTime }: HeaderProps): JSX.Element => {
     return (
         <HeaderStyled>
-            <div className="header-title__container">
-                <TitleStyled>Lineage 2</TitleStyled>
-                <SubtitleStyled>TIME TRACKER</SubtitleStyled>
+            <div className="header-container">
+                <div className="header-title__container">
+                    <TitleStyled>Reborn Eternal IL</TitleStyled>
+                    <SubtitleStyled>TIME TRACKER</SubtitleStyled>
+                </div>
+                <LocalTime localTime={localTime} />
             </div>
-            <LocalTime localTime={localTime} />
         </HeaderStyled>
     );
 };

@@ -7,26 +7,36 @@ export type Weekdays =
     | "friday"
     | "saturday";
 
-export interface TeamEvent {
+type Event = {
     key: string;
     eventName: string;
     serverTime: string;
     localTime: string;
     localTimeLeft: string;
-}
+    isCustomEvent: boolean;
+};
 
-export interface EpicBossEvent {
-    key: string;
-    eventName: string;
-    serverTime: string;
-    localTime: string;
-    localTimeLeft: string;
+export type TeamEvent = Event;
+
+export type UserCustomEvent = TeamEvent & {
+    windowStart: string;
+    deleteButton?: JSX.Element;
+    id: number;
+};
+
+export type EpicBossEvent = Event & {
     eventDays: Weekdays[];
     windowStart: string;
-}
+};
 
-export interface EventColumns {
+export type EventColumns = {
     title: string;
     dataIndex: keyof TeamEvent;
     key: keyof TeamEvent;
-}
+};
+
+export type CustomEventColumns = {
+    title: string;
+    dataIndex: keyof UserCustomEvent;
+    key: keyof UserCustomEvent;
+};

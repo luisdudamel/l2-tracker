@@ -1,19 +1,26 @@
 import moment from "moment-timezone";
-import { EpicBossEvent, TeamEvent, Weekdays } from "../types/events";
+import {
+    UserCustomEvent,
+    EpicBossEvent,
+    TeamEvent,
+    Weekdays,
+} from "../types/events";
 
 export const generateUpdatedTimes = (
     currentServerTime: string,
-    events: TeamEvent[] | EpicBossEvent[]
-): TeamEvent[] => {
+    events: TeamEvent[] | EpicBossEvent[] | UserCustomEvent[]
+): TeamEvent[] | UserCustomEvent[] => {
     const currentDate = new Date(currentServerTime);
+
     return events
         .map((event) => {
             const eventDate = new Date(event.serverTime);
             if (eventDate < currentDate && eventDate.getHours() < 24) {
-                eventDate.setHours(new Date(event.serverTime).getHours());
-                eventDate.setDate(eventDate.getDate() + 1);
+                if (!event.isCustomEvent) {
+                    eventDate.setHours(new Date(event.serverTime).getHours());
+                    eventDate.setDate(eventDate.getDate() + 1);
+                }
             }
-
             const timeDifference = eventDate.getTime() - currentDate.getTime();
 
             return {
@@ -24,17 +31,30 @@ export const generateUpdatedTimes = (
             };
         })
         .sort((a, b) => {
-            if (a.eventDate < b.eventDate) return -1;
-            if (a.eventDate > b.eventDate) return 1;
             return a.timeDifference - b.timeDifference;
         })
         .map((event, index) => {
+            if (event.event.isCustomEvent) {
+                return {
+                    key: (index + 1).toString(),
+                    id: (event.event as UserCustomEvent).id,
+                    eventName: event.event.eventName,
+                    localTime: moment(event.event.serverTime)
+                        .utc(true)
+                        .format(),
+                    serverTime: event.time,
+                    localTimeLeft: "",
+                    isCustomEvent: event.event.isCustomEvent,
+                };
+            }
+
             return {
                 key: (index + 1).toString(),
                 eventName: event.event.eventName,
                 localTime: moment(event.eventDate).utc(true).format(),
                 serverTime: event.time,
                 localTimeLeft: "",
+                isCustomEvent: event.event.isCustomEvent,
             };
         });
 };
@@ -46,7 +66,7 @@ export const timeDifference = (minutes: number): string => {
     const formattedMinutes =
         remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
 
-    return `${hours}:${formattedMinutes}`;
+    return `0${hours}:${formattedMinutes}`;
 };
 
 export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {
@@ -95,4 +115,39 @@ export const updateEpicEventsDates = (event: EpicBossEvent): Date | "Never" => {
     }
 
     return "Never";
+};
+
+export const updateCustomEventsOnStorage = (
+    customEvents: UserCustomEvent[]
+) => {
+    customEvents.forEach(
+        (event, index) => (event.key = (index + 1).toString())
+    );
+    localStorage.setItem("customEvents", JSON.stringify(customEvents));
+};
+
+export const deleteCustomEventOnStorage = (eventKey: string) => {
+    const storedCustomEvents = JSON.parse(
+        localStorage.getItem("customEvents") || "[]"
+    ) as UserCustomEvent[];
+    localStorage.removeItem("customEvents");
+
+    const filteredEvents = storedCustomEvents.filter(
+        (event) => event.key !== eventKey
+    );
+    filteredEvents.forEach(
+        (event, index) => (event.key = (index + 1).toString())
+    );
+    localStorage.setItem("customEvents", JSON.stringify(filteredEvents));
+};
+
+export const getNextKey = (currentUserEvents: UserCustomEvent[]): number => {
+    if (!currentUserEvents.length) {
+        return 1;
+    }
+
+    const maxId = Math.max(
+        ...currentUserEvents.map((currentEvent) => currentEvent.id)
+    );
+    return isNaN(maxId) ? 1 : maxId + 1;
 };

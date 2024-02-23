@@ -1,34 +1,18 @@
-import { Flex, Layout } from "antd";
+import { Flex } from "antd";
 import Header from "../Header/Header";
 import EventList from "../EventsList/EventList";
 import { useEffect, useState } from "react";
 import { updateEpicEventsDates } from "../../utils/timeFunctions";
 import { epicBosses } from "../EventsList/events";
-const { Content } = Layout;
-
-const layoutStyle: React.CSSProperties = {
-    backgroundColor: "#305768",
-    height: "100vh",
-};
-
-const contentStyle: React.CSSProperties = {
-    textAlign: "center",
-    minHeight: 120,
-    paddingLeft: 100,
-    paddingRight: 100,
-    paddingTop: 100,
-    lineHeight: "120px",
-    color: "#fff",
-    fontSize: "120px",
-    backgroundColor: "#305768",
-};
+import EventCreator from "../EventCreator/EventCreator";
+import { StyledLayout } from "./StyledLayout";
+import { UserCustomEvent } from "../../types/events";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-regular-svg-icons";
 
 const MainLayout = (): JSX.Element => {
+    const [customEvents, setCustomEvents] = useState<UserCustomEvent[]>([]);
     const [currentTime, setLocalTime] = useState<string>("");
-
-    useEffect(() => {
-        epicBosses.forEach((event) => updateEpicEventsDates(event));
-    }, []);
 
     useEffect(() => {
         const updateCurrentTime = () => {
@@ -53,7 +37,21 @@ const MainLayout = (): JSX.Element => {
             secondsUntilNextMinute * 1000
         );
 
+        epicBosses.forEach((event) => updateEpicEventsDates(event));
+
         return () => clearInterval(intervalId);
+    }, []);
+
+    useEffect(() => {
+        const storedCustomEvents = JSON.parse(
+            localStorage.getItem("customEvents") || "[]"
+        ) as UserCustomEvent[];
+
+        storedCustomEvents.forEach((customEvent) => {
+            customEvent.deleteButton = <FontAwesomeIcon icon={faEdit} />;
+        });
+
+        setCustomEvents(storedCustomEvents);
     }, []);
 
     const getUserLocale = (): string => {
@@ -66,12 +64,19 @@ const MainLayout = (): JSX.Element => {
 
     return (
         <Flex gap="middle" wrap="wrap">
-            <Layout style={layoutStyle}>
+            <StyledLayout>
                 <Header localTime={currentTime} />
-                <Content style={contentStyle}>
-                    <EventList />
-                </Content>
-            </Layout>
+                <div className="content-container">
+                    <EventCreator
+                        setCurrentCustomEvents={setCustomEvents}
+                        currentCustomEvents={customEvents}
+                    />
+                    <EventList
+                        setCurrentCustomEvents={setCustomEvents}
+                        currentCustomEvents={customEvents}
+                    />
+                </div>
+            </StyledLayout>
         </Flex>
     );
 };

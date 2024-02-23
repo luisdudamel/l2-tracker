@@ -6,7 +6,7 @@ export const LocalTimeStyled = styled.div`
     align-items: center;
     justify-content: flex-end;
 
-    @media (max-width: 600px) {
+    @media (max-width: 800px) {
         justify-content: center;
     }
     .local-time {
@@ -14,7 +14,6 @@ export const LocalTimeStyled = styled.div`
         align-items: center;
         gap: 1em;
         height: 2em;
-        max-width: 200px;
         color: black;
         padding: 0 1em;
         background-color: white;

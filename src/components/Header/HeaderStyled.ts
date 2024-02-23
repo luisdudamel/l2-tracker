@@ -6,14 +6,15 @@ export const HeaderStyled = styled.header`
     background-color: black;
     border-radius: 0 0 12px 12px;
     padding-top: 2em;
-    padding-left: 2em;
-    padding-right: 2em;
-    height: 150px;
-    @media (max-width: 600px) {
+    padding-left: 10em;
+    padding-right: 10em;
+    justify-content: center;
+    @media (max-width: 800px) {
         flex-direction: column;
-        height: 15em;
+        height: 20em;
         gap: 20px;
         justify-content: center;
+        padding: 0 1em;
     }
 
     .header {
@@ -24,9 +25,18 @@ export const HeaderStyled = styled.header`
                 height: 100%;
                 width: 100%;
 
-                @media (max-width: 600px) {
+                @media (max-width: 800px) {
                     align-items: center;
+                    flex-direction: column;
                 }
+            }
+        }
+        &-container {
+            width: 100%;
+            max-width: 1600px;
+            display: flex;
+            @media (max-width: 800px) {
+                flex-direction: column;
             }
         }
     }
@@ -39,6 +49,10 @@ export const TitleStyled = styled.h1`
     font-size: 3rem;
     top: -0.7em;
     margin: 0;
+
+    @media (max-width: 800px) {
+        font-size: 2rem;
+    }
 `;
 
 export const SubtitleStyled = styled.h2`
@@ -46,4 +60,8 @@ export const SubtitleStyled = styled.h2`
     top: 3em;
     margin: 0;
     height: 100%;
+
+    @media (max-width: 800px) {
+        font-size: 1rem;
+    }
 `;
